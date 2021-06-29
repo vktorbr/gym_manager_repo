@@ -1,1 +1,0 @@
-{"avatar_url":"http://google.com","name":"Victor Martins Soares","birth":"2021-06-23","gender":"M","services":"Musculação, Powerlifting"}
