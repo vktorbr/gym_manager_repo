@@ -1,6 +1,6 @@
 const fs = require("fs");
 const data = require("./data.json");
-const { age } = require("./utils");
+const { age, date } = require("./utils");
 
 //show
 exports.show = function(req, res){
@@ -38,7 +38,7 @@ exports.post = function(req, res){
     //desestruturacao 
     let {avatar_url, birth, gender, services, name} = req.body;
 
-    birth = Date.parse(req.body.birth);
+    birth = Date.parse(birth);
     const created_at = Date.now();
     const id = data.instructos.length + 1;
 
@@ -58,5 +58,53 @@ exports.post = function(req, res){
         if(err) return res.send("Write file error!");
 
         return res.redirect("/instructors");
+    })
+}
+
+//edit
+exports.edit = function(req, res){
+    const { id } = req.params;
+    
+    const foundInstructor = data.instructos.find(function(instructor){
+        return instructor.id == id;
+    })
+
+    if(!foundInstructor) return res.send("Instructor not found!");
+
+    const instructor = {
+        ...foundInstructor,
+        birth: date(foundInstructor.birth)
+    }
+
+    return res.render("instructors/edit", { instructor });
+}
+
+//put
+exports.put = function(req, res){
+    const { id } = req.body;
+
+    let index = 0;
+
+    const foundInstructor = data.instructos.find(function(instructor, foundIndex){
+        if(id == instructor.id){
+            index = foundIndex;
+            return true;
+        }
+    })
+
+    if(!foundInstructor) return res.send("Instrutor não encontrado!");
+
+    const instructor = {
+        ...foundInstructor,
+        ...req.body,
+        birth: Date.parse(req.body.birth)
+    }
+
+    data.instructos[index] = instructor;
+
+    fs.writeFile("data.json", JSON.stringify(data, null, 2), function(err){
+        if(err) return res.send("Write error!");
+
+        return res.redirect(`/instructors/${id}`);
     })
 }

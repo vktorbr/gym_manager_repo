@@ -1,6 +1,7 @@
 const express = require("express"); // instancia o express
 const nunjucks = require("nunjucks");
 const routes = require("./routes");
+const methodOverride = require("method-override");
 
 const server = express(); //executa a funcao
 
@@ -8,6 +9,7 @@ const server = express(); //executa a funcao
 server.use(express.urlencoded({ extended:true }));
 //serve os arquivos estaticos da pasta public para o servidor
 server.use(express.static("public"));
+server.use(methodOverride("_method"));
 server.use(routes); //middleware routes
 
 //configuracao da template engine
