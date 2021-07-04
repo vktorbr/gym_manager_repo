@@ -7,7 +7,7 @@ exports.show = function(req, res){
     //req.params
     const { id } = req.params;
     
-    const foundInstructor = data.instructos.find(function(instructor){
+    const foundInstructor = data.instructors.find(function(instructor){
         return instructor.id == id;
     })
 
@@ -40,10 +40,10 @@ exports.post = function(req, res){
 
     birth = Date.parse(birth);
     const created_at = Date.now();
-    const id = data.instructos.length + 1;
+    const id = data.instructors.length + 1;
 
     //coloca o novo instrutor no array de instrutores
-    data.instructos.push({
+    data.instructors.push({
         id,
         avatar_url,
         birth,
@@ -65,7 +65,7 @@ exports.post = function(req, res){
 exports.edit = function(req, res){
     const { id } = req.params;
     
-    const foundInstructor = data.instructos.find(function(instructor){
+    const foundInstructor = data.instructors.find(function(instructor){
         return instructor.id == id;
     })
 
@@ -85,7 +85,7 @@ exports.put = function(req, res){
 
     let index = 0;
 
-    const foundInstructor = data.instructos.find(function(instructor, foundIndex){
+    const foundInstructor = data.instructors.find(function(instructor, foundIndex){
         if(id == instructor.id){
             index = foundIndex;
             return true;
@@ -100,11 +100,27 @@ exports.put = function(req, res){
         birth: Date.parse(req.body.birth)
     }
 
-    data.instructos[index] = instructor;
+    data.instructors[index] = instructor;
 
     fs.writeFile("data.json", JSON.stringify(data, null, 2), function(err){
         if(err) return res.send("Write error!");
 
         return res.redirect(`/instructors/${id}`);
+    })
+}
+
+//delete
+exports.delete = function(req, res){
+    const { id } = req.body;
+
+    const filteredInstructors = data.instructors.filter(function(instructor){
+        return id != instructor.id;
+    })
+    
+    data.instructors = filteredInstructors;
+
+    fs.writeFile("data.json", JSON.stringify(data, null, 2),function(err){
+        if(err) return res.send("Write error!");
+        return res.redirect("/instructors");
     })
 }
