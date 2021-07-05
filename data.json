@@ -1,13 +1,22 @@
 {
   "instructors": [
     {
-      "id": "1",
+      "id": 1,
       "avatar_url": "https://images.unsplash.com/photo-1606894436761-7a742916220a?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80",
       "birth": 850694400000,
       "created_at": 1624984541233,
       "gender": "M",
       "services": "Powerbuilding",
-      "name": "Vktor Martins"
+      "name": "Vktor Mrtins"
+    },
+    {
+      "id": 2,
+      "avatar_url": "https://images.unsplash.com/photo-1512544783971-fb9a0691eda5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80",
+      "birth": 854755200000,
+      "created_at": 1625446170663,
+      "gender": "M",
+      "services": "Fisiculturismo, Pole Dance",
+      "name": "Lobo"
     }
   ]
 }
